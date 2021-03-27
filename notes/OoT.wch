@@ -1,0 +1,13 @@
+SystemID N64
+11A644	b	h	1	RDRAM	Item Start
+11A65C	b	s	1	RDRAM	Ammo Start
+11A66D	b	h	1	RDRAM	Sword/Shield
+11A66C	b	h	1	RDRAM	Tunic/Boots
+11A66E	w	h	1	RDRAM	???
+11A670	d	h	1	RDRAM	Upgrades
+11A674	d	h	1	RDRAM	Quest Items
+11A678	b	u	1	RDRAM	Dungeon Items Start
+11A68C	b	s	1	RDRAM	Dungeon Keys Start
+11A69F	b	s	1	RDRAM	Double Defense Hearts
+11A6A0	w	s	1	RDRAM	Skulltulas
+
