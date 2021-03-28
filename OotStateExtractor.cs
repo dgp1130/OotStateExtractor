@@ -31,7 +31,8 @@ namespace DevelWoutACause.OotStateExtractor {
 
             watcher.Changed += (value) => {
                 var upgrades = Upgrades.FromMemory(value);
-                Console.WriteLine(upgrades);
+                var saveContext = new SaveContext(Upgrades: upgrades);
+                Console.WriteLine(saveContext);
             };
         }
 
