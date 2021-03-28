@@ -30,7 +30,8 @@ namespace DevelWoutACause.OotStateExtractor {
             ));
 
             watcher.Changed += (value) => {
-                Console.WriteLine($"Upgrades: {value}");
+                var upgrades = Upgrades.FromMemory(value);
+                Console.WriteLine(upgrades);
             };
         }
 
