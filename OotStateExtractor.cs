@@ -12,7 +12,7 @@ namespace DevelWoutACause.OotStateExtractor {
         [RequiredService]
         public IMemoryDomains? memoryDomains { get; set; }
 
-        private Watch? watch;
+        private Watcher? watcher;
 
         public bool AskSaveChanges() => true;
 
@@ -21,30 +21,28 @@ namespace DevelWoutACause.OotStateExtractor {
                 throw new Exception("Memory domains is not available.");
             }
 
-            watch = Watch.GenerateWatch(
+            watcher = Watcher.Of(Watch.GenerateWatch(
                 memoryDomains.MainMemory,
                 0x11A670 /* address */,
                 WatchSize.DWord,
                 DisplayType.Hex,
                 true /* big endian */
-            );
+            ));
+
+            watcher.Changed += (value) => {
+                Console.WriteLine($"Upgrades: {value}");
+            };
         }
 
-        private string lastValue = "";
         public void UpdateValues(ToolFormUpdateType type) {
             // Only execute after a frame.
             if (type != ToolFormUpdateType.PostFrame) return;
 
-            if ((object?) watch == null) {
-                throw new Exception("Watch not initialized.");
+            if (watcher == null) {
+                throw new Exception("Watcher not initialized.");
             }
 
-            watch.Update(GlobalWin.Config.RamWatchDefinePrevious);
-            if (lastValue != watch.ValueString) {
-                Console.WriteLine(
-                    $"Address {watch.AddressString} has value {watch.ValueString}.");
-                lastValue = watch.ValueString;
-            }
+            watcher.Update(GlobalWin.Config.RamWatchDefinePrevious);
         }
     }
 }
