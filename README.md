@@ -7,7 +7,7 @@ automatically update their state in accordance with the actual game.
 ## Local Development
 
 First, download
-[BizHawk 2.6.1](https://github.com/TASVideos/BizHawk/releases/tag/2.6.1) and
+[BizHawk 2.5.2](https://github.com/TASVideos/BizHawk/releases/tag/2.5.2) and
 place it at `BizHawk/` in the root directory of this repository. Other versions
 are not tested and may not work.
 
