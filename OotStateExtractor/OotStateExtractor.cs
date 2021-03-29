@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk;
 using BizHawk.Emulation.Common;
+using DevelWoutACause.OotStateExtractor.Service;
 
 namespace DevelWoutACause.OotStateExtractor {
     [ExternalTool("OoT State Extractor")]
@@ -27,6 +28,8 @@ namespace DevelWoutACause.OotStateExtractor {
             }
             saveContextWatcher = SaveContextWatcher.Of(memoryDomains);
             saveContextWatcher.Updated += this.saveContextChanged;
+
+            Server.Start(new string[] { });
         }
 
         protected override void Dispose(bool disposing) {

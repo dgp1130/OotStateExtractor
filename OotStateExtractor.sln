@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OotStateExtractor", "OotStateExtractor\OotStateExtractor.csproj", "{7F9CEF3D-B4F0-4471-B136-30018ACDEEF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OotStateExtractorService", "OotStateExtractorService\OotStateExtractorService.csproj", "{EE68B17C-6D44-45EB-9606-D4C5967C1802}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OotStateExtractorService", "OotStateExtractorService\OotStateExtractorService.csproj", "{C78DFFA9-D0D0-45C5-BCE6-7AAE21834688}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{7F9CEF3D-B4F0-4471-B136-30018ACDEEF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F9CEF3D-B4F0-4471-B136-30018ACDEEF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F9CEF3D-B4F0-4471-B136-30018ACDEEF1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EE68B17C-6D44-45EB-9606-D4C5967C1802}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE68B17C-6D44-45EB-9606-D4C5967C1802}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE68B17C-6D44-45EB-9606-D4C5967C1802}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE68B17C-6D44-45EB-9606-D4C5967C1802}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C78DFFA9-D0D0-45C5-BCE6-7AAE21834688}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C78DFFA9-D0D0-45C5-BCE6-7AAE21834688}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C78DFFA9-D0D0-45C5-BCE6-7AAE21834688}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C78DFFA9-D0D0-45C5-BCE6-7AAE21834688}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
