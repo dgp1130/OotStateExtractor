@@ -1,3 +1,10 @@
+# Build outputs.
 bin/
 obj/
+
+# BizHawk install.
 BizHawk/
+
+# User configurations.
+**.suo
+**.user
