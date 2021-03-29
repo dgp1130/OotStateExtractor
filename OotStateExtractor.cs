@@ -4,47 +4,57 @@ using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk;
 using BizHawk.Emulation.Common;
 
-using DisplayType = BizHawk.Client.Common.DisplayType;
-
 namespace DevelWoutACause.OotStateExtractor {
     [ExternalTool("OoT State Extractor")]
     public sealed class Extractor : Form, IExternalToolForm {
         [RequiredService]
         public IMemoryDomains? memoryDomains { get; set; }
 
-        private Watcher? watcher;
+        private SaveContextWatcher? saveContextWatcher;
 
         public bool AskSaveChanges() => true;
+
+        private bool disposed = false;
 
         public void Restart() {
             if (memoryDomains == null) {
                 throw new Exception("Memory domains is not available.");
             }
 
-            watcher = Watcher.Of(Watch.GenerateWatch(
-                memoryDomains.MainMemory,
-                0x11A670 /* address */,
-                WatchSize.DWord,
-                DisplayType.Hex,
-                true /* big endian */
-            ));
+            if (saveContextWatcher != null) {
+                saveContextWatcher.Updated -= this.saveContextChanged;
+                saveContextWatcher.Dispose();
+            }
+            saveContextWatcher = SaveContextWatcher.Of(memoryDomains);
+            saveContextWatcher.Updated += this.saveContextChanged;
+        }
 
-            watcher.Changed += (value) => {
-                var upgrades = Upgrades.FromMemory(value);
-                var saveContext = new SaveContext(Upgrades: upgrades);
-                Console.WriteLine(saveContext);
-            };
+        protected override void Dispose(bool disposing) {
+            if (disposed) return;
+
+            if (saveContextWatcher != null) {
+                saveContextWatcher.Updated -= this.saveContextChanged;
+                saveContextWatcher.Dispose();
+            }
+
+            disposed = true;
+
+            base.Dispose(disposing);
+        }
+
+        private void saveContextChanged(SaveContext saveContext) {
+            Console.WriteLine(saveContext);
         }
 
         public void UpdateValues(ToolFormUpdateType type) {
             // Only execute after a frame.
             if (type != ToolFormUpdateType.PostFrame) return;
 
-            if (watcher == null) {
-                throw new Exception("Watcher not initialized.");
+            if (saveContextWatcher == null) {
+                throw new Exception("saveContextWatcher not initialized.");
             }
 
-            watcher.Update(GlobalWin.Config.RamWatchDefinePrevious);
+            saveContextWatcher.Update(GlobalWin.Config.RamWatchDefinePrevious);
         }
     }
 }
