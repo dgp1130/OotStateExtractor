@@ -11,7 +11,13 @@ First, download
 place it at `BizHawk/` in the root directory of this repository. Other versions
 are not tested and may not work.
 
-Make sure the `dotnet` and `mono` commands are installed from .NET 5.0.
+If using Visual Studio, you should be able to just run the `OotStateExtractor`
+project which will build the plugin, copy it to the local `BizHawk/` directory,
+and start it.  In BizHawk, go to `ools > External Tools > OoT State Extractor`
+to start the plugin.
+
+If you are not using Visual Studio and building within Linux or WSL2, make sure
+the `dotnet` and `mono` commands are installed from .NET 5.0.
 
 If you are using WSL 2, you'll also need to set up an XServer on Windows in
 order to display the graphical BizHawk application. VcXsrv is one such

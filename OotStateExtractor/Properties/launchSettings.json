@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "OotStateExtractor": {
+      "commandName": "Executable",
+      "executablePath": "$(SolutionDir)BizHawk\\EmuHawk.exe",
+      "workingDirectory": "$(SolutionDir)\\BizHawk"
+    }
+  }
+}
