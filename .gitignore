@@ -8,3 +8,6 @@ BizHawk/
 # User configurations.
 **.suo
 **.user
+
+# Visual Studio internal data
+**.dtbcache.v2
