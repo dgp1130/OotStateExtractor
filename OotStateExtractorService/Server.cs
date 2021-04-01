@@ -12,8 +12,11 @@ namespace DevelWoutACause.OotStateExtractor.Service
 {
     public class Server
     {
-        public static void Start(string[] args)
-        {
+        public static void Start() {
+            Start(new string[] { });
+        }
+
+        public static void Start(string[] args) {
             CreateWebHostBuilder(args).Build().Run();
         }
 

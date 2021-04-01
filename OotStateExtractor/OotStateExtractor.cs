@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk;
@@ -15,6 +16,7 @@ namespace DevelWoutACause.OotStateExtractor {
 
         public bool AskSaveChanges() => true;
 
+        private bool serverStarted = false;
         private bool disposed = false;
 
         public void Restart() {
@@ -29,7 +31,10 @@ namespace DevelWoutACause.OotStateExtractor {
             saveContextWatcher = SaveContextWatcher.Of(memoryDomains);
             saveContextWatcher.Updated += this.saveContextChanged;
 
-            Server.Start(new string[] { });
+            if (!serverStarted) {
+                Task.Run(() => Server.Start());
+                serverStarted = true;
+            }
         }
 
         protected override void Dispose(bool disposing) {
