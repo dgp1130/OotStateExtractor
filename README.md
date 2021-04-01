@@ -13,7 +13,7 @@ are not tested and may not work.
 
 If using Visual Studio, you should be able to just run the `OotStateExtractor`
 project which will build the plugin, copy it to the local `BizHawk/` directory,
-and start it.  In BizHawk, go to `ools > External Tools > OoT State Extractor`
+and start it.  In BizHawk, go to `Tools > External Tools > OoT State Extractor`
 to start the plugin.
 
 If you are not using Visual Studio and building within Linux or WSL2, make sure
@@ -30,3 +30,6 @@ dotnet build && BizHawk/EmuHawkMono.sh --mono-no-redirect --open-ext-tool-dll=Oo
 ```
 
 This will start BizHawk and open the state extractor tool.
+
+WARNING: Do **NOT** open the log window! It will crash the server. See:
+https://github.com/TASVideos/BizHawk/issues/2694.
