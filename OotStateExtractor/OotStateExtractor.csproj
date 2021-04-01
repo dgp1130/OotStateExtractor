@@ -15,6 +15,6 @@
 		<Reference Include="BizHawk.WinForms.Controls" HintPath="$(ProjectDir)../BizHawk/dll/BizHawk.WinForms.Controls.dll" />
 	</ItemGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	  <Exec Command="xcopy $(ProjectDir)bin\Debug\net48\ $(ProjectDir)..\BizHawk\dll\ /E /Y" />
+	  <Exec Command="xcopy $(ProjectDir)bin\Debug\net48\ $(SolutionDir)BizHawk\dll\ /E /Y&#xD;&#xA;copy $(ProjectDir)bin\Debug\net48\OotStateExtractor.dll $(SolutionDir)BizHawk\ExternalTools\OotStateExtractor.dll" />
 	</Target>
 </Project>
