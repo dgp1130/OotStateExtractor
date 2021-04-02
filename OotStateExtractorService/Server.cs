@@ -1,14 +1,8 @@
 ﻿using DevelWoutACause.OotStateExtractor.Common;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace DevelWoutACause.OotStateExtractor.Service
 {
@@ -20,6 +14,9 @@ namespace DevelWoutACause.OotStateExtractor.Service
         public static void Start(LatestEmission<SaveContext> latestSaveContext, string[] args) {
             CreateWebHostBuilder(args).ConfigureServices((serviceCollection) => {
                 serviceCollection.AddScoped((serviceProvider) => latestSaveContext.Value);
+                serviceCollection.AddMvcCore().AddJsonOptions((options) => {
+                    options.SerializerSettings.Formatting = Formatting.Indented;
+                });
             }).Build().Run();
         }
 
