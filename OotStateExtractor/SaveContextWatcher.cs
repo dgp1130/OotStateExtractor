@@ -1,6 +1,7 @@
 using System;
 using BizHawk.Client.Common;
 using BizHawk.Emulation.Common;
+using DevelWoutACause.OotStateExtractor.Common;
 
 namespace DevelWoutACause.OotStateExtractor {
     /** A `Watcher` for the entire game save context. */

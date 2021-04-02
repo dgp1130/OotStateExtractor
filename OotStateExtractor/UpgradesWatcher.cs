@@ -1,6 +1,7 @@
 using System;
 using BizHawk.Client.Common;
 using BizHawk.Emulation.Common;
+using DevelWoutACause.OotStateExtractor.Common;
 
 using DisplayType = BizHawk.Client.Common.DisplayType;
 

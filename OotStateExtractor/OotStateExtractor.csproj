@@ -6,6 +6,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="all" />
+		<ProjectReference Include="..\OotStateExtractorCommon\OotStateExtractorCommon.csproj" />
 		<ProjectReference Include="..\OotStateExtractorService\OotStateExtractorService.csproj" />
 		<Reference Include="System.Windows.Forms" />
 		<Reference Include="BizHawk.Client.Common" HintPath="$(ProjectDir)../BizHawk/dll/BizHawk.Client.Common.dll" />

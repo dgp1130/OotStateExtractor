@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk;
 using BizHawk.Emulation.Common;
+using DevelWoutACause.OotStateExtractor.Common;
 using DevelWoutACause.OotStateExtractor.Service;
 
 namespace DevelWoutACause.OotStateExtractor {
