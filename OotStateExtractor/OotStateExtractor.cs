@@ -15,11 +15,10 @@ namespace DevelWoutACause.OotStateExtractor {
 
         private SaveContextWatcher? saveContextWatcher;
         private LatestEmission<SaveContext>? latestSaveContext;
+        private bool initialized = false;
+        private bool disposed = false;
 
         public bool AskSaveChanges() => true;
-
-        private bool serverStarted = false;
-        private bool disposed = false;
 
         public void Restart() {
             if (memoryDomains == null) {
@@ -29,16 +28,18 @@ namespace DevelWoutACause.OotStateExtractor {
             latestSaveContext?.Dispose();
             saveContextWatcher?.Dispose();
 
-            saveContextWatcher = SaveContextWatcher.Of(memoryDomains);
-            latestSaveContext = LatestEmission<SaveContext>.Of(
-                initial: SaveContext.empty(),
-                subscribe: (emit) => saveContextWatcher.Updated += emit,
-                unsubscribe: (emit) => saveContextWatcher.Updated -= emit
-            );
+            if (!initialized) {
+                saveContextWatcher = SaveContextWatcher.Of(memoryDomains);
 
-            if (!serverStarted) {
-                Task.Run(() => Server.Start());
-                serverStarted = true;
+                latestSaveContext = LatestEmission<SaveContext>.Of(
+                    initial: SaveContext.empty(),
+                    subscribe: (emit) => saveContextWatcher.Updated += emit,
+                    unsubscribe: (emit) => saveContextWatcher.Updated -= emit
+                );
+
+                Task.Run(() => Server.Start(latestSaveContext));
+
+                initialized = true;
             }
         }
 
