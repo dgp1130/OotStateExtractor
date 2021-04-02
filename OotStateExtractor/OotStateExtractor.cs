@@ -14,6 +14,7 @@ namespace DevelWoutACause.OotStateExtractor {
         public IMemoryDomains? memoryDomains { get; set; }
 
         private SaveContextWatcher? saveContextWatcher;
+        private LatestEmission<SaveContext>? latestSaveContext;
 
         public bool AskSaveChanges() => true;
 
@@ -25,12 +26,15 @@ namespace DevelWoutACause.OotStateExtractor {
                 throw new Exception("Memory domains is not available.");
             }
 
-            if (saveContextWatcher != null) {
-                saveContextWatcher.Updated -= this.saveContextChanged;
-                saveContextWatcher.Dispose();
-            }
+            latestSaveContext?.Dispose();
+            saveContextWatcher?.Dispose();
+
             saveContextWatcher = SaveContextWatcher.Of(memoryDomains);
-            saveContextWatcher.Updated += this.saveContextChanged;
+            latestSaveContext = LatestEmission<SaveContext>.Of(
+                initial: SaveContext.empty(),
+                subscribe: (emit) => saveContextWatcher.Updated += emit,
+                unsubscribe: (emit) => saveContextWatcher.Updated -= emit
+            );
 
             if (!serverStarted) {
                 Task.Run(() => Server.Start());
@@ -41,18 +45,12 @@ namespace DevelWoutACause.OotStateExtractor {
         protected override void Dispose(bool disposing) {
             if (disposed) return;
 
-            if (saveContextWatcher != null) {
-                saveContextWatcher.Updated -= this.saveContextChanged;
-                saveContextWatcher.Dispose();
-            }
+            latestSaveContext?.Dispose();
+            saveContextWatcher?.Dispose();
 
             disposed = true;
 
             base.Dispose(disposing);
-        }
-
-        private void saveContextChanged(SaveContext saveContext) {
-            Console.WriteLine(saveContext);
         }
 
         public void UpdateValues(ToolFormUpdateType type) {

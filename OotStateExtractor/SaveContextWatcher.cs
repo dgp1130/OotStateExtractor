@@ -28,10 +28,10 @@ namespace DevelWoutACause.OotStateExtractor {
             );
         }
 
-        public event Watcher<SaveContext>.UpdatedHandler? Updated;
-        private void upgradesUpdated(Upgrades upgrades) {
+        public event EventHandler<SaveContext>? Updated;
+        private void upgradesUpdated(object sender, Upgrades upgrades) {
             saveContext = saveContext with { Upgrades = upgrades };
-            Updated?.Invoke(saveContext);
+            Updated?.Invoke(this, saveContext);
         }
 
         /**

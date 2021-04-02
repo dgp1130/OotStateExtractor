@@ -1,4 +1,5 @@
 using BizHawk.Client.Common;
+using System;
 
 namespace DevelWoutACause.OotStateExtractor {
     /**
@@ -11,8 +12,7 @@ namespace DevelWoutACause.OotStateExtractor {
         
         // Event triggered whenever the value is updated. The emitted value may
         // not **necessarily** be different from its previous value.
-        delegate void UpdatedHandler(T value);
-        event UpdatedHandler? Updated;
+        event EventHandler<T>? Updated;
     }
 
     /** Represents a watched object loaded directly from game memory. */
@@ -34,10 +34,10 @@ namespace DevelWoutACause.OotStateExtractor {
         public void Update(PreviousType previousType) {
             watch.Update(previousType);
             if (watch.Value != watch.Previous) {
-                Updated?.Invoke(deserialize(watch.Value));
+                Updated?.Invoke(this, deserialize(watch.Value));
             }
         }
 
-        public event Watcher<T>.UpdatedHandler? Updated;
+        public event EventHandler<T>? Updated;
     }
 }
