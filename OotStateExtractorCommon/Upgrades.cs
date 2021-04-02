@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace DevelWoutACause.OotStateExtractor.Common {
     /*
      * Player upgrades. "Upgrades" in this context refers to the game's
@@ -6,7 +8,10 @@ namespace DevelWoutACause.OotStateExtractor.Common {
      * swords, shields, tunics, or boots.
      */
     public sealed record Upgrades {
+        [JsonProperty("has_sticks")]
         public bool HasSticks { get; init; }
+
+        [JsonProperty("has_nuts")]
         public bool HasNuts { get; init; }
     }
 }
