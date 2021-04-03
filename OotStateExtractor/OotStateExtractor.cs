@@ -32,7 +32,7 @@ namespace DevelWoutACause.OotStateExtractor {
                 saveContextWatcher = SaveContextWatcher.Of(memoryDomains);
 
                 latestSaveContext = LatestEmission<SaveContext>.Of(
-                    initial: SaveContext.empty(),
+                    initial: SaveContext.Empty(),
                     subscribe: (emit) => saveContextWatcher.Updated += emit,
                     unsubscribe: (emit) => saveContextWatcher.Updated -= emit
                 );

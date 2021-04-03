@@ -5,7 +5,7 @@ namespace DevelWoutACause.OotStateExtractor.Common {
     public sealed record SaveContext(
         [property:JsonProperty("upgrades")] Upgrades Upgrades
     ) {
-        public static SaveContext empty() {
+        public static SaveContext Empty() {
             return new SaveContext(Upgrades: new Upgrades());
         }
     }

@@ -12,7 +12,7 @@ namespace DevelWoutACause.OotStateExtractor {
         private bool disposed;
 
         private SaveContextWatcher(UpgradesWatcher upgradesWatcher) {
-            this.saveContext = SaveContext.empty();
+            this.saveContext = SaveContext.Empty();
             this.upgradesWatcher = upgradesWatcher;
             this.disposed = false;
 
