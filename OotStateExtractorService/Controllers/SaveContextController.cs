@@ -10,6 +10,7 @@ namespace DevelWoutACause.OotStateExtractor.Service.Controllers {
         [HttpGet]
         public ActionResult<SaveContext> Get([FromServices] SaveContext saveContext) {
             Response.ContentType = "application/json";
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
             return saveContext;
         }
     }
