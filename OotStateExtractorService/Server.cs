@@ -7,11 +7,11 @@ using Newtonsoft.Json;
 namespace DevelWoutACause.OotStateExtractor.Service
 {
     public class Server {
-        public static void Start(LatestEmission<SaveContext> latestSaveContext) {
+        public static void Start(EventWithLatest<SaveContext> latestSaveContext) {
             Start(latestSaveContext, new string[] { });
         }
 
-        public static void Start(LatestEmission<SaveContext> latestSaveContext, string[] args) {
+        public static void Start(EventWithLatest<SaveContext> latestSaveContext, string[] args) {
             CreateWebHostBuilder(args).ConfigureServices((serviceCollection) => {
                 serviceCollection.AddScoped((serviceProvider) => latestSaveContext);
                 serviceCollection.AddMvcCore().AddJsonOptions((options) => {

@@ -2,7 +2,8 @@
 
 namespace DevelWoutACause.OotStateExtractor.Common {
     /**
-     * Stores the most recently emitted value from an event. Example usage:
+     * A subscribable event with the most recently emitted
+     * value. Example usage:
      * 
      * ```cs
      * internal sealed class Example {
@@ -28,29 +29,31 @@ namespace DevelWoutACause.OotStateExtractor.Common {
      * }
      * ```
      */
-    public sealed class LatestEmission<T> : IDisposable {
+    public sealed class EventWithLatest<T> : IDisposable {
         public delegate void Subscribe(EventHandler<T> handler);
         public delegate void Unsubscribe(EventHandler<T> handler);
 
         public T Value { get; private set; }
         private readonly Unsubscribe unsubscribe;
+        public event EventHandler<T>? OnEmit;
         private bool disposed = false;
 
-        private LatestEmission(T value, Unsubscribe unsubscribe) {
+        private EventWithLatest(T value, Unsubscribe unsubscribe) {
             this.Value = value;
             this.unsubscribe = unsubscribe;
         }
 
         private void emit(object sender, T value) {
             this.Value = value;
+            this.OnEmit?.Invoke(this, value);
         }
 
-        public static LatestEmission<T> Of(
+        public static EventWithLatest<T> Of(
             T initial,
             Subscribe subscribe,
             Unsubscribe unsubscribe
         ) {
-            var latest = new LatestEmission<T>(
+            var latest = new EventWithLatest<T>(
                 value: initial,
                 unsubscribe: unsubscribe
             );

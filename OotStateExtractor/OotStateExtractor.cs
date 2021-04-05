@@ -14,7 +14,7 @@ namespace DevelWoutACause.OotStateExtractor {
         public IMemoryDomains? memoryDomains { get; set; }
 
         private SaveContextWatcher? saveContextWatcher;
-        private LatestEmission<SaveContext>? latestSaveContext;
+        private EventWithLatest<SaveContext>? latestSaveContext;
         private bool initialized = false;
         private bool disposed = false;
 
@@ -31,7 +31,7 @@ namespace DevelWoutACause.OotStateExtractor {
             if (!initialized) {
                 saveContextWatcher = SaveContextWatcher.Of(memoryDomains);
 
-                latestSaveContext = LatestEmission<SaveContext>.Of(
+                latestSaveContext = EventWithLatest<SaveContext>.Of(
                     initial: SaveContext.Empty(),
                     subscribe: (emit) => saveContextWatcher.Updated += emit,
                     unsubscribe: (emit) => saveContextWatcher.Updated -= emit
