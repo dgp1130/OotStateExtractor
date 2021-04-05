@@ -8,27 +8,39 @@ namespace DevelWoutACause.OotStateExtractor {
     internal sealed class SaveContextWatcher
             : Watcher<SaveContext>, IDisposable {
         private SaveContext saveContext;
+        private readonly EquipmentWatcher equipmentWatcher;
         private readonly UpgradesWatcher upgradesWatcher;
         private bool disposed;
 
-        private SaveContextWatcher(UpgradesWatcher upgradesWatcher) {
+        private SaveContextWatcher(
+            EquipmentWatcher equipmentWatcher,
+            UpgradesWatcher upgradesWatcher
+        ) {
             this.saveContext = SaveContext.Empty();
+            this.equipmentWatcher = equipmentWatcher;
             this.upgradesWatcher = upgradesWatcher;
             this.disposed = false;
 
-            // HACK: This event handler is never cleaned up and is likely a
-            // memory leak.
             this.upgradesWatcher.Updated += this.upgradesUpdated;
+            this.equipmentWatcher.Updated += this.equipmentUpdated;
+
         }
 
         /** Returns a `SaveContextWatcher` for the given memory domain. */
         public static SaveContextWatcher Of(IMemoryDomains memoryDomains) {
             return new SaveContextWatcher(
+                equipmentWatcher: EquipmentWatcher.Of(memoryDomains),
                 upgradesWatcher: UpgradesWatcher.Of(memoryDomains)
             );
         }
 
         public event EventHandler<SaveContext>? Updated;
+
+        private void equipmentUpdated(object sender, Equipment equipment) {
+            saveContext = saveContext with { Equipment = equipment };
+            Updated?.Invoke(this, saveContext);
+        }
+
         private void upgradesUpdated(object sender, Upgrades upgrades) {
             saveContext = saveContext with { Upgrades = upgrades };
             Updated?.Invoke(this, saveContext);
@@ -39,12 +51,14 @@ namespace DevelWoutACause.OotStateExtractor {
          * context if applicable.
          */
         public void Update(PreviousType previousType) {
+            equipmentWatcher.Update(previousType);
             upgradesWatcher.Update(previousType);
         }
 
         public void Dispose() {
             if (disposed) return;
-            
+
+            equipmentWatcher.Updated -= this.equipmentUpdated;
             upgradesWatcher.Updated -= this.upgradesUpdated;
 
             disposed = true;
