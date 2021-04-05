@@ -1,6 +1,8 @@
 <div *ngIf="saveContext$ | async as saveContext">
     <ul>
-        <li>Has sticks: {{ saveContext.upgrades.hasSticks }}</li>
-        <li>Has nuts: {{ saveContext.upgrades.hasNuts }}</li>
+        <li class="sprite sprite-sticks"
+            [class.grayscale]="!saveContext.upgrades.hasSticks"></li>
+        <li class="sprite sprite-nuts"
+            [class.grayscale]="!saveContext.upgrades.hasNuts"></li>
     </ul>
 </div>
