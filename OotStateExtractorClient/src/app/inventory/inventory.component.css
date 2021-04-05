@@ -10,19 +10,26 @@ ul > li {
 }
 
 .sprite {
+    width: 32px;
+    height: 32px;
+
     background-image: url("/assets/spritesheet.png");
     background-repeat: no-repeat;
 }
 
+.sprite-kokiri-sword {
+    background-position: calc(5 * -32px) calc(9 * -32px);
+}
+
+.sprite-deku-shield {
+    background-position: calc(2 * -32px) calc(10 * -32px);
+}
+
 .sprite-sticks {
-    width: 32px;
-    height: 32px;
     background-position: 0 0;
 }
 
 .sprite-nuts {
-    width: 32px;
-    height: 32px;
     background-position: -32px 0;
 }
 

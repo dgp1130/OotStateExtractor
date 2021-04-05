@@ -1,5 +1,9 @@
 <div *ngIf="saveContext$ | async as saveContext">
     <ul>
+        <li class="sprite sprite-kokiri-sword"
+            [class.grayscale]="!saveContext.equipment.hasKokiriSword"></li>
+        <li class="sprite sprite-deku-shield"
+            [class.grayscale]="!saveContext.equipment.hasDekuShield"></li>
         <li class="sprite sprite-sticks"
             [class.grayscale]="!saveContext.upgrades.hasSticks"></li>
         <li class="sprite sprite-nuts"
