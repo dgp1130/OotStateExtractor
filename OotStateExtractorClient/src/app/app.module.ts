@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -10,6 +11,7 @@ import { APP_CONFIG, config } from './app.config';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
   ],
   providers: [{
     provide: APP_CONFIG,
