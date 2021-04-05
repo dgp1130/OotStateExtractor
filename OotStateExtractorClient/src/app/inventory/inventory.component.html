@@ -1,0 +1,6 @@
+<div *ngIf="saveContext$ | async as saveContext">
+    <ul>
+        <li>Has sticks: {{ saveContext.upgrades.hasSticks }}</li>
+        <li>Has nuts: {{ saveContext.upgrades.hasNuts }}</li>
+    </ul>
+</div>
