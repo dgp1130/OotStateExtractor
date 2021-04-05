@@ -13,7 +13,7 @@ namespace DevelWoutACause.OotStateExtractor.Service
 
         public static void Start(LatestEmission<SaveContext> latestSaveContext, string[] args) {
             CreateWebHostBuilder(args).ConfigureServices((serviceCollection) => {
-                serviceCollection.AddScoped((serviceProvider) => latestSaveContext.Value);
+                serviceCollection.AddScoped((serviceProvider) => latestSaveContext);
                 serviceCollection.AddMvcCore().AddJsonOptions((options) => {
                     options.SerializerSettings.Formatting = Formatting.Indented;
                 });
