@@ -33,3 +33,13 @@ This will start BizHawk and open the state extractor tool.
 
 WARNING: Do **NOT** open the log window! It will crash the server. See:
 https://github.com/TASVideos/BizHawk/issues/2694.
+
+After opening the tool window, it will be blank but a server is running in the background at
+`http://localhost:5000/`. While that is running, `cd` into `OotStateExtractorClient` and run:
+
+```shell
+npm start
+```
+
+This will start an Angular app at `http://localhost:4200/` which will connect to the API server
+and display the game's `SaveContext`, updating in real-time.
