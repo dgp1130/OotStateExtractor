@@ -11,20 +11,36 @@ namespace DevelWoutACause.OotStateExtractor.Service.Controllers {
     [ApiController]
     public class SaveContextController : ControllerBase {
         /** Returns the current `SaveContext` serialized as JSON. */
-        [Route("api/v1/save-context/get")]
+        [Route("api/v1/save-context")]
         [HttpGet]
-        public ActionResult<SaveContext> Get(
-            [FromServices] EventWithLatest<SaveContext> saveContext
+        public async Task Get(
+            [FromServices] EventWithLatest<SaveContext> saveContext,
+            CancellationToken cancellationToken
+        ) {
+            string acceptHeader = Request.Headers["Accept"];
+            if (acceptHeader == "text/event-stream") {
+                await respondWithStream(saveContext, cancellationToken);
+            } else {
+                await respondWithCurrent(saveContext, cancellationToken);
+            }
+        }
+
+        private async Task respondWithCurrent(
+            EventWithLatest<SaveContext> saveContext,
+            CancellationToken cancellationToken
         ) {
             Response.ContentType = "application/json";
             Response.Headers.Add("Access-Control-Allow-Origin", "*");
-            return saveContext.Value;
+            await Response.WriteAsync(JsonConvert.SerializeObject(
+                saveContext.Value,
+                new JsonSerializerSettings {
+                    Formatting = Formatting.Indented,
+                }
+            ), cancellationToken);
         }
 
-        [Route("api/v1/save-context/stream")]
-        [HttpGet]
-        public async Task Stream(
-            [FromServices] EventWithLatest<SaveContext> saveContext,
+        private async Task respondWithStream(
+            EventWithLatest<SaveContext> saveContext,
             CancellationToken cancellationToken
         ) {
             Response.ContentType = "text/event-stream";

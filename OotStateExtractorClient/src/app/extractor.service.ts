@@ -17,7 +17,7 @@ export class ExtractorService {
    */
   public extract(): Observable<SaveContext> {
     return new Observable<string>((sub) => {
-      const url = `http://${this.config.apiHost}/api/v1/save-context/stream`;
+      const url = `http://${this.config.apiHost}/api/v1/save-context`;
       const source = new EventSource(url);
   
       function onMessage(evt: MessageEvent) {
