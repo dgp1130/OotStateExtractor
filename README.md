@@ -1,10 +1,23 @@
 # Legend of Zelda: Ocarina of Time - State Extractor
 
-This project attempts to read the memory of Ocarina of Time, track the game
-state, and emit it in real time. This allows randomizer trackers trackers to
-automatically update their state in accordance with the actual game.
+This project is an "auto-tracker" which attempts to read the memory of Ocarina
+of Time, track the game state, and emit it in real time. This allows randomizer
+trackers trackers to automatically update their state in accordance with the
+actual game.
 
-![Demo](https://user-images.githubusercontent.com/11010321/113808278-8c140c00-971a-11eb-940f-ac97b2d0244d.mp4)
+[Demo video.](https://user-images.githubusercontent.com/11010321/113808278-8c140c00-971a-11eb-940f-ac97b2d0244d.mp4)
+
+## Design
+
+This project is a proof-of-concept [BizHawk](https://github.com/TASVideos/BizHawk)
+external tool which starts an API server at `localhost:5000` that returns the state
+of the player's inventory and even supports an event stream which live-updates as
+the player acquires items. This server is intended to be able to support any UI
+client the user may choose.
+
+There is an Angular client which is built and served seperately from the tool,
+and consumes the event stream API in real-time. This is more of an example UI
+since the point of the extractor service is to be independent of any client UI.
 
 ## Local Development
 
